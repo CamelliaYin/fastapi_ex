@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  web:
+    build: . # build from the current path
+    # the command to executed when the container starts
+    # note: --reload for developing mode only 
+    command: sh -c "uvicorn main:app --reload --port=8000 --host=0.0.0.0" 
+    # provide the path to our environment file
+    env_file:
+      - .env
+    ports:
+      - 8000:8000 
+      # map the host system's 8000 port to the contatiner's 8000 port
+    
+    # to sync our host machine with the docker container (change will reflect immediately)
+    # we need to mount the value in the Docker compose
+    volumes:
+      - .:/app
